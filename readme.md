@@ -7,11 +7,11 @@ Lopuksi tehdään yksinkertainen tietokantaa käyttävä web-sovellus
 
 ## Kurssin aihealueet viikottain
 
-- [ ]  Map, periytyminen ja JUnit yksikkötestaus
-- [ ]  Tietokantaohjelmoinnin perusteet
-- [ ]  Dynaaminen internet projekti
-- [ ]  CRUD Listaus ja haku. GIT
-- [ ]  CRUD Lisäys ja poisto
-- [ ]  CRUD Muutos. Postman
-- [ ]  Perinteinen Dynaaminen projekti ja natiivi JS
-- [ ]  Tentti
+- [ ]  Map, periytyminen ja JUnit yksikkötestaus **DL 01.11**
+- [ ]  Tietokantaohjelmoinnin perusteet **DL 08.11**
+- [ ]  Dynaaminen internet projekti **DL 15.11**
+- [ ]  CRUD Listaus ja haku. GIT **DL 22.11**
+- [ ]  CRUD Lisäys ja poisto **DL 29.11**
+- [ ]  CRUD Muutos. Postman **DL 06.12**
+- [ ]  Perinteinen Dynaaminen projekti ja natiivi JS **DL 13.12**
+- [ ]  Tentti **DL 18.11**
