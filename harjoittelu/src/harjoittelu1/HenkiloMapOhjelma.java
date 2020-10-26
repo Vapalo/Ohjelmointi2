@@ -36,6 +36,16 @@ public class HenkiloMapOhjelma {
 				break;
 			case 3:
 				muutaNimiJaOsoite();
+			case 4:
+				muutaKoko();
+				break;
+			case 5:
+				naytaKaikkiTiedot();
+				break;
+			case 0:
+				break;
+			default:
+				System.out.println("Virheellinen valinta");
 			}
 		} while (valinta != 0);
 	}
@@ -80,17 +90,33 @@ public class HenkiloMapOhjelma {
 			System.out.println("Henkilöä ei ole");
 		}
 	}
-	
+
 	public void muutaKoko() {
 		String nimi = lukija.lueTeksti("Anna kokoa muutettavan henkilön nimi: ");
-		if(henkilot.containsKey(nimi)) {
+		if (henkilot.containsKey(nimi)) {
 			Henkilo kokomuutos = henkilot.get(nimi);
 			Koko koko = kokomuutos.getKoko();
 			henkilot.remove(kokomuutos);
 			koko.setPituus(lukija.lueDesimaaliluku("Anna uusi pituus: "));
 			koko.setPaino(lukija.lueKokonaisluku("Anna uusi paino: "));
+			kokomuutos.setKoko(koko);
+			henkilot.put(kokomuutos.getNimi(), kokomuutos);
+		} else {
+			System.out.println("Henkilöä ei ole");
 		}
-		
+	}
+
+	public void naytaKaikkiTiedot() {
+		Set<String> tiedot = henkilot.keySet();
+		Iterator<String> i = tiedot.iterator();
+		while (i.hasNext()) {
+			Henkilo hlo = henkilot.get(i.next());
+			System.out.println("\nNimi: " + hlo.getNimi());
+			System.out.println("Osoite: " + hlo.getOsoite());
+			System.out.println("Pituus: " + hlo.getKoko().getPituus());
+			System.out.println("Paino: " + hlo.getKoko().getPaino());
+			System.out.println("Painoindeksi: " + hlo.getKoko().getPainoindeksi());
+		}
 	}
 
 	public static void main(String[] args) {
