@@ -7,7 +7,7 @@ Lopuksi tehdään yksinkertainen tietokantaa käyttävä web-sovellus
 
 ## Kurssin aihealueet viikottain
 
-- [ ]  Map, periytyminen ja JUnit yksikkötestaus **DL 01.11**
+- [x]  Map, periytyminen ja JUnit yksikkötestaus **DL 01.11**
 - [ ]  Tietokantaohjelmoinnin perusteet **DL 08.11**
 - [ ]  Dynaaminen internet projekti **DL 15.11**
 - [ ]  CRUD Listaus ja haku. GIT **DL 22.11**
