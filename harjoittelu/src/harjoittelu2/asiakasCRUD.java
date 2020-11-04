@@ -4,8 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import harjoittelu1.Lukija;
+import jdk.nashorn.internal.runtime.ECMAErrors;
 
 public class asiakasCRUD {
 
@@ -85,6 +87,35 @@ public class asiakasCRUD {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	public void lisaaAsiakas() {
+		String etunimi = lukija.lueTeksti("Anna lisättävän asiakkaan etunimi: ");
+		String sukunimi = lukija.lueTeksti("Anna lisättävän asiakkaan sukunimi: ");
+		String puhelin = lukija.lueTeksti("Anna lisättävän asiakkaan puhelinnumero: ");
+		String sposti = lukija.lueTeksti("Anna lisättävän asiakkaan sähköposti: ");
+		
+		if (etunimi.length() > 1 && sukunimi.length() > 1 && puhelin.length() > 1 && sposti.length() > 1) {
+			sql = "INSERT INTO asiakkaat (etunimi, sukunimi, puhelin, sposti) VALUES (?,?,?,?)";
+			
+			try {
+				con = yhdista();
+				stmtPrep = con.prepareStatement(sql);
+				stmtPrep.setString(1, etunimi);
+				stmtPrep.setString(2, sukunimi);
+				stmtPrep.setString(3, puhelin);
+				stmtPrep.setString(4, sposti);
+				stmtPrep.executeUpdate();
+				
+				con.close();
+				
+				System.out.println("Asiakkaan lisääminen onnistui");
+				listaaAsiakas();
+			}catch (SQLException e) {
+				System.out.println("Asiakkaan lisääminen epäonnistui");
+				e.printStackTrace();
+			}
 		}
 	}
 
