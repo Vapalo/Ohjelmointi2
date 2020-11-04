@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import harjoittelu1.Lukija;
-import jdk.nashorn.internal.runtime.ECMAErrors;
+
 
 public class asiakasCRUD {
 
@@ -76,10 +76,10 @@ public class asiakasCRUD {
 					System.out.println();
 
 					while (rs.next()) {
-						System.out.print(rs.getString(1) + "\t\t");
 						System.out.print(rs.getString(2) + "\t\t");
 						System.out.print(rs.getString(3) + "\t\t");
 						System.out.print(rs.getString(4) + "\t\t");
+						System.out.print(rs.getString(5) + "\t\t");
 						System.out.println();
 
 					}
@@ -127,7 +127,7 @@ public class asiakasCRUD {
 		String etunimi = lukija.lueTeksti("Anna muutettavan asiakkaan etunimi: ");
 		String sukunimi = lukija.lueTeksti("Anna muutettavan asiakkaan sukunimi: ");
 
-		sql = "SELECT * FROM asiakkaat WHERE etunimi = ? && sukunimi = ?";
+		sql = "SELECT * FROM asiakkaat WHERE etunimi=? AND sukunimi=?";
 
 		try {
 			con = yhdista();
@@ -156,7 +156,7 @@ public class asiakasCRUD {
 						sposti = rs.getString("sposti");
 					}
 
-					sql = "UPDATE asiakkaat SET etunimi = ?, sukunimi = ?, puhelin = ?, sposti = ? WHERE etunimi = ? && sukunimi = ?";
+					sql = "UPDATE asiakkaat SET etunimi=?, sukunimi=?, puhelin=?, sposti=? WHERE etunimi=? AND sukunimi=?";
 
 					stmtPrep = con.prepareStatement(sql);
 					stmtPrep.setString(1, uusienimi);
@@ -175,6 +175,47 @@ public class asiakasCRUD {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void poistaAsiakas() {
+		listaaAsiakas();
+		String etunimi = lukija.lueTeksti("Anna poistettavan asiakkaan etunimi: ");
+		String sukunimi = lukija.lueTeksti("Anna poistettavan asiakkaan sukunimi: ");
+
+		sql = "SELECT * FROM asiakkaat WHERE etunimi=? AND sukunimi=?";
+		
+		try {
+			con = yhdista();
+			
+			if (con != null) {
+				stmtPrep = con.prepareStatement(sql);
+				stmtPrep.setString(1, etunimi);
+				stmtPrep.setString(2, sukunimi);
+				rs = stmtPrep.executeQuery();
+				
+				if (rs.isBeforeFirst()) {
+					rs.next();
+					
+					if (lukija.lueTeksti("Haluatko varmasti poistaa henkilön " + rs.getString("etunimi") + " " + rs.getString("sukunimi")
+							+ " " + rs.getString("puhelin") + " " + rs.getString("sposti") + " (k/e)").equalsIgnoreCase("k")) {
+						sql = "DELETE FROM asiakkaat WHERE etunimi=? AND sukunimi=?";
+						stmtPrep = con.prepareStatement(sql);
+						stmtPrep.setString(1, etunimi);
+						stmtPrep.setString(2, sukunimi);
+						stmtPrep.executeUpdate();
+					}
+				} else {
+					System.out.println("Antamaasi henkilöä ei löydy tietokannasta\n");
+				}
+			}
+			con.close();
+			listaaAsiakas();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		
 	}
 
 	public static void main(String[] args) {
