@@ -63,7 +63,29 @@ public class asiakasCRUD {
 	}
 
 	private void listaaAsiakas() {
-		
+		sql = "SELECT * FROM asiakkaat";
+		try {
+			con = yhdista();
+			if (con != null) {// Jos yhteys onnistui
+				stmtPrep = con.prepareStatement(sql);
+				rs = stmtPrep.executeQuery();
+
+				if (rs != null) { // Jos kysely tuotti tulosta
+					System.out.println();
+
+					while (rs.next()) {
+						System.out.print(rs.getString(1) + "\t\t");
+						System.out.print(rs.getString(2) + "\t\t");
+						System.out.print(rs.getString(3) + "\t\t");
+						System.out.print(rs.getString(4) + "\t\t");
+						System.out.println();
+
+					}System.out.println();
+				}con.close();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static void main(String[] args) {
