@@ -5,6 +5,8 @@
 <html>
 <head>
 <style>
+
+/*Tyylit viety suoraan w3schools sivuston esimerkistä
 /* Style inputs with type="text", select elements and textareas */
 input[type=text], select, textarea {
 	width: 15%; /* Full width */
