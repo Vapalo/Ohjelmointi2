@@ -19,7 +19,7 @@ public class Dao {
 
 	private Connection yhdista() {
 		Connection con = null;
-		String path = System.getProperty("user.dir") + "/";
+		String path = "C:/Users/donit/Documents/Koulutehtävät/Ohjelmointi2/etatehtava4" + "/";
 		String url = "jdbc:sqlite:" + path + db;
 
 		try {
