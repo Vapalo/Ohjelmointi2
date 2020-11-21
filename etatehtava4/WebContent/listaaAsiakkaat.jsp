@@ -10,15 +10,22 @@
 
 <style>
 .hakuteksti {
-	text-align: right;
+	text-align: left;
 }
 
-th {
+#otsikot {
 	padding: 5px;
+	margin-top: 5px;
+	border: 5px;
+}
+
+th td tr {
+	padding: 5px;
+	text-align: left;
 }
 
 td {
-	padding: 5px;
+	padding: 0 15px;
 }
 
 #listaus {
@@ -29,14 +36,14 @@ td {
 </style>
 </head>
 <body>
-	<table id="listaus" border="1">
+	<table id="listaus"">
 		<thead>
 			<tr>
 				<th class="hakuteksti">Hakusana:</th>
 				<th colspan="2"><input type="text" id="hakusana"></th>
 				<th><input type="button" value="hae" id="hakunappi"></th>
 			</tr>
-			<tr>
+			<tr id="otsikot">
 				<th>Etunimi</th>
 				<th>Sukunimi</th>
 				<th>Puhelin</th>
@@ -49,25 +56,25 @@ td {
 
 	<script>
 		$(document).ready(function() {
-				haeAsiakkaat();			
+			haeAsiakkaat();
 			$("#hakunappi").click(function() { //Hakunappia painaessa suoritetaan haeAsiakkaat funktio uudelleen hakusana arvolla
 				haeAsiakkaat();
 			});
-			
+
 			$(document.body).on("keydown", function(event) { //T‰m‰n avulla saadaan hakutoiminto suoritettua. 13 on enterin value eventiss‰
-				if(event.which==13){
+				if (event.which == 13) {
 					haeAsiakkaat();
 				}
 			});
-			
+
 			$("#hakusana").focus(); //T‰ll‰ sadaan cursori hakukentt‰‰n kun sivu latautuu
 
 		});
-		
+
 		function haeAsiakkaat() {
 			$("#listaus tbody").empty();
 			$.ajax({
-				url : "asiakkaat/"+$("#hakusana").val(), //T‰ss‰ hakusanan arvo v‰litet‰‰n eteenp‰in servletille ja sit‰ kautta Daolle
+				url : "asiakkaat/" + $("#hakusana").val(), //T‰ss‰ hakusanan arvo v‰litet‰‰n eteenp‰in servletille ja sit‰ kautta Daolle
 				type : "GET",
 				dataType : "json",
 				success : function(result) {
@@ -83,7 +90,8 @@ td {
 						$("#listaus tbody").append(htmlteksti);
 					})
 				}
-			})};
+			})
+		};
 	</script>
 </body>
 </html>
