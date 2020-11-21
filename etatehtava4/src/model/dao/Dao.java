@@ -45,10 +45,10 @@ public class Dao {
 				if (rs != null) {
 					while (rs.next()) {
 						Asiakas asiakas = new Asiakas();
-						asiakas.setEtunimi(rs.getString(1));
-						asiakas.setSukunimi(rs.getString(2));
-						asiakas.setPuhelin(rs.getString(3));
-						asiakas.setSposti(rs.getString(4));
+						asiakas.setEtunimi(rs.getString(2));
+						asiakas.setSukunimi(rs.getString(3));
+						asiakas.setPuhelin(rs.getString(4));
+						asiakas.setSposti(rs.getString(5));
 
 						asiakkaat.add(asiakas);
 
