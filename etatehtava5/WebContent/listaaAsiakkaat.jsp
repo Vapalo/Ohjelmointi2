@@ -33,11 +33,18 @@ td {
 	margin-right: auto;
 	margin-left: auto;
 }
+.sivunvaihto{
+	text-align: right;
+	cursor: pointer;
+}
 </style>
 </head>
 <body>
-	<table id="listaus"">
+	<table id="listaus">
 		<thead>
+			<tr>
+				<th colspan="4" class="sivunvaihto"><span id="uusiAsiakas">Lis‰‰ uusi asiakas</span>
+			</tr>
 			<tr>
 				<th class="hakuteksti">Hakusana:</th>
 				<th colspan="2"><input type="text" id="hakusana"></th>
@@ -56,6 +63,12 @@ td {
 
 	<script>
 		$(document).ready(function() {
+			
+			$("#uusiAsiakas").click(function() {
+				document.location="lisaaAsiakas.jsp";
+			});
+			
+			
 			haeAsiakkaat();
 			$("#hakunappi").click(function() { //Hakunappia painaessa suoritetaan haeAsiakkaat funktio uudelleen hakusana arvolla
 				haeAsiakkaat();
