@@ -4,6 +4,7 @@ import java.sql.DriverManager;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import model.Asiakas;
@@ -81,9 +82,7 @@ public class Dao {
 						asiakas.setSukunimi(rs.getString(3));
 						asiakas.setPuhelin(rs.getString(4));
 						asiakas.setSposti(rs.getString(5));
-
 						asiakkaat.add(asiakas);
-
 					}
 				}
 			}
@@ -91,5 +90,30 @@ public class Dao {
 			e.printStackTrace();
 		}
 		return asiakkaat;
-	}
+	};
+	
+	public boolean lisaaAsiakas(Asiakas asiakas) {
+		boolean paluuArvo = true;
+		sql="INSERT INTO asiakkaat(etunimi, sukunimi, puhelin, sposti) VALUES (?,?,?,?)";
+		try {
+			con = yhdista();
+			stmtPrep = con.prepareStatement(sql);
+			stmtPrep.setString(1, asiakas.getEtunimi());
+			stmtPrep.setString(2, asiakas.getSukunimi());
+			stmtPrep.setString(3, asiakas.getPuhelin());
+			stmtPrep.setString(4, asiakas.getSposti());
+			stmtPrep.executeUpdate();
+			con.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			paluuArvo=false;
+		}
+		return paluuArvo;
+	};
+	
+	
+	
+	
+	
 }

@@ -5,39 +5,9 @@
 <head>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/main.css">
 <meta charset="ISO-8859-1">
 <title>Asiakkaiden listaus</title>
-
-<style>
-.hakuteksti {
-	text-align: left;
-}
-
-#otsikot {
-	padding: 5px;
-	margin-top: 5px;
-	border: 5px;
-}
-
-th td tr {
-	padding: 5px;
-	text-align: left;
-}
-
-td {
-	padding: 0 15px;
-}
-
-#listaus {
-	display: inline-block;
-	margin-right: auto;
-	margin-left: auto;
-}
-.sivunvaihto{
-	text-align: right;
-	cursor: pointer;
-}
-</style>
 </head>
 <body>
 	<table id="listaus">

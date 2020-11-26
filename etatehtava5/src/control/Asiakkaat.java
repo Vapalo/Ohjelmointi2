@@ -43,6 +43,22 @@ public class Asiakkaat extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("Asiakkaat.doPost()");
+		JSONObject jsonObj = new JsonStrToObj().convert(request);
+		Asiakas asiakas = new Asiakas();
+		asiakas.setEtunimi(jsonObj.getString("etunimi"));
+		asiakas.setSukunimi(jsonObj.getString("sukunimi"));
+		asiakas.setPuhelin(jsonObj.getString("puhelin"));
+		asiakas.setSposti(jsonObj.getString("sposti"));
+		
+		PrintWriter out = response.getWriter();	
+		response.setContentType("application/json");
+		Dao dao = new Dao();
+		if(dao.lisaaAsiakas(asiakas)) { //Tämä metodi palauttaa true tai false, eli 1 tai 0
+			out.println("{ \"response\":1 }"); //Asiakkaan lisääminen onnistui
+		} else {
+			out.println("{ \"response\":0}"); //Asiakkaan lisääminen epäonnistui
+		}
+		
 	}
 
 	protected void doPut(HttpServletRequest request, HttpServletResponse response)
