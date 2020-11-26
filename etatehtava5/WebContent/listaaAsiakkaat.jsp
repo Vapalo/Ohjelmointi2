@@ -13,23 +13,26 @@
 	<table id="listaus">
 		<thead>
 			<tr>
-				<th colspan="4" class="sivunvaihto"><span id="uusiAsiakas">Lisää uusi asiakas</span>
+				<th colspan="5" class="sivunvaihto"><span id="uusiAsiakas">Lisää uusi asiakas</span>
 			</tr>
 			<tr>
-				<th class="hakuteksti">Hakusana:</th>
-				<th colspan="2"><input type="text" id="hakusana"></th>
-				<th><input type="button" value="hae" id="hakunappi"></th>
+				<th class="tulostaulu" colspan="2">Hakusana:</th>
+				<th colspan="2" class="tulostaulu"><input type="text" id="hakusana"></th>
+				<th class="tulostaulu"><input type="button" value="hae" id="hakunappi"></th>
 			</tr>
-			<tr id="otsikot">
+			<tr class="tulostaulu">
 				<th>Etunimi</th>
 				<th>Sukunimi</th>
 				<th>Puhelin</th>
 				<th>Sähköposti</th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody>
 		</tbody>
 	</table>
+	
+	<span id="ilmo"></span>
 
 	<script>
 		$(document).ready(function() {
@@ -69,12 +72,30 @@
 						htmlteksti += "<td>" + field.sukunimi + "</td>";
 						htmlteksti += "<td>" + field.puhelin + "</td>";
 						htmlteksti += "<td>" + field.sposti + "</td>";
+						htmlteksti += "<td><span class='poista' onclick=poista('"+field.etunimi+field.sukunimi+"')>Poista</span></td>";
 						htmlteksti += "</tr>";
 						$("#listaus tbody").append(htmlteksti);
 					})
 				}
 			})
 		};
+			function poista(etunimi, sukunimi){
+				if(confirm("Poista henkilö: " + etunimi + " " + sukunimi +"?")){
+					$.ajax({
+						url: "asiakkaat/"+etunimi+'&'+sukunimi,
+						type:"DELETE",
+						dataType:"json",
+						success: function(result){
+						if(result.response==0) { //Jos poisto ei onnistu
+							$("#ilmo").html("Asiakkaan poisto epäonnistui");	
+						} else if (result.response==1){ //Jos poisto onnistui
+							$("#rivi_"+etunimi).css("background-color", "red");
+							alert("Asiakkaan " + etunimi + " " +sukunimi+ " poisto onnistui.");
+							haeAsiakkaat();
+						}
+					}});
+				}
+			};
 	</script>
 </body>
 </html>

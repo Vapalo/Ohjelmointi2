@@ -13,14 +13,14 @@
 <title>Asiakkaan lisäys</title>
 </head>
 <body>
-	<form id="tiedot">
+	<form id="tiedot" autocomplete="off">
 		<table>
 			<thead>
 				<tr>
 					<th colspan="5" class="sivunvaihto"><span id="listaaAsiakas">Takaisin
 							asiakkaiden listaukseen</span></th>
 				</tr>
-				<tr>
+				<tr class="tulostaulu">
 					<th>Etunimi</th>
 					<th>Sukunimi</th>
 					<th>Puhelin</th>

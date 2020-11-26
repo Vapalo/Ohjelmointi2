@@ -112,6 +112,23 @@ public class Dao {
 		return paluuArvo;
 	};
 	
+	public boolean poistaAuto(String etunimi, String sukunimi) {
+		boolean paluuArvo = true;
+		sql= "DELETE FROM asiakkaat WHERE etunimi=?";
+		try {
+			con = yhdista();
+			stmtPrep = con.prepareStatement(sql);
+			stmtPrep.setString(1, etunimi);
+			stmtPrep.executeUpdate();
+			con.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			paluuArvo = false;
+		}
+		return paluuArvo;
+	}
+	
 	
 	
 	

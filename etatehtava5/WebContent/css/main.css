@@ -7,19 +7,29 @@ table {
 
 table td, table th {
   border: 1px solid #ddd;
-  padding: 8px;  
+  padding: 15px;  
 }
 
 table tbody tr:nth-child(even){background-color: #f2f2f2;}
 
 table tbody tr:hover {background-color: #ddd;}
 
-table th {
+.sivunvaihto {
+	padding-top: 12px;
+	padding-bottom: 12px;
+	text-align: right;
+	color: black;
+	cursor: pointer;
+	background-color: #FFE9AB;
+	
+}
+
+.tulostaulu {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-  background-color: #4CAF50;
-  color: white;
+  background-color: #FFE9AB;
+  color: black;
 }
 
 .poista{
@@ -28,12 +38,8 @@ table th {
 	cursor: pointer;	
 }
 
-}
 
-#sivunvaihto{
-	color: white;	
-	cursor: pointer;
-	text-align: right;	
-}
+
+
 
 
