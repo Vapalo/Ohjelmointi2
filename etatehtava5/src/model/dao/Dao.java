@@ -46,6 +46,7 @@ public class Dao {
 				if (rs != null) {
 					while (rs.next()) {
 						Asiakas asiakas = new Asiakas();
+						asiakas.setAsiakas_id(rs.getInt(1));
 						asiakas.setEtunimi(rs.getString(2));
 						asiakas.setSukunimi(rs.getString(3));
 						asiakas.setPuhelin(rs.getString(4));
@@ -78,6 +79,7 @@ public class Dao {
 				if (rs != null) {
 					while (rs.next()) {
 						Asiakas asiakas = new Asiakas();
+						asiakas.setAsiakas_id(rs.getInt(1));
 						asiakas.setEtunimi(rs.getString(2));
 						asiakas.setSukunimi(rs.getString(3));
 						asiakas.setPuhelin(rs.getString(4));
@@ -112,13 +114,13 @@ public class Dao {
 		return paluuArvo;
 	};
 	
-	public boolean poistaAuto(String etunimi, String sukunimi) {
+	public boolean poistaAsiakas(int asiakas_id) {
 		boolean paluuArvo = true;
-		sql= "DELETE FROM asiakkaat WHERE etunimi=?";
+		sql= "DELETE FROM asiakkaat WHERE asiakas_id=?";
 		try {
 			con = yhdista();
 			stmtPrep = con.prepareStatement(sql);
-			stmtPrep.setString(1, etunimi);
+			stmtPrep.setInt(1, asiakas_id);
 			stmtPrep.executeUpdate();
 			con.close();
 			

@@ -13,14 +13,15 @@
 	<table id="listaus">
 		<thead>
 			<tr>
-				<th colspan="5" class="sivunvaihto"><span id="uusiAsiakas">Lisää uusi asiakas</span>
+				<th colspan="6" class="sivunvaihto"><span id="uusiAsiakas">Lisää uusi asiakas</span>
 			</tr>
 			<tr>
-				<th class="tulostaulu" colspan="2">Hakusana:</th>
+				<th class="tulostaulu" colspan="3">Hakusana:</th>
 				<th colspan="2" class="tulostaulu"><input type="text" id="hakusana"></th>
 				<th class="tulostaulu"><input type="button" value="hae" id="hakunappi"></th>
 			</tr>
 			<tr class="tulostaulu">
+				<th>Asiakas ID </th>
 				<th>Etunimi</th>
 				<th>Sukunimi</th>
 				<th>Puhelin</th>
@@ -66,31 +67,33 @@
 				success : function(result) {
 					$.each(result.asiakkaat, function(i, field) {
 						var htmlteksti;
+						
 
 						htmlteksti += "<tr>";
+						htmlteksti += "<td>" + field.asiakas_id + "</td>";
 						htmlteksti += "<td>" + field.etunimi + "</td>";
 						htmlteksti += "<td>" + field.sukunimi + "</td>";
 						htmlteksti += "<td>" + field.puhelin + "</td>";
 						htmlteksti += "<td>" + field.sposti + "</td>";
-						htmlteksti += "<td><span class='poista' onclick=poista('"+field.etunimi+field.sukunimi+"')>Poista</span></td>";
+						htmlteksti += "<td><span class='poista' onclick=poista("+field.asiakas_id+")>Poista</span></td>";
 						htmlteksti += "</tr>";
 						$("#listaus tbody").append(htmlteksti);
 					})
 				}
 			})
 		};
-			function poista(etunimi, sukunimi){
-				if(confirm("Poista henkilö: " + etunimi + " " + sukunimi +"?")){
+			function poista(asiakas_id){
+				if(confirm("Poista asiakas jonka id on: " + asiakas_id +"?")){
 					$.ajax({
-						url: "asiakkaat/"+etunimi+'&'+sukunimi,
+						url: "asiakkaat/"+asiakas_id,
 						type:"DELETE",
 						dataType:"json",
 						success: function(result){
 						if(result.response==0) { //Jos poisto ei onnistu
 							$("#ilmo").html("Asiakkaan poisto epäonnistui");	
 						} else if (result.response==1){ //Jos poisto onnistui
-							$("#rivi_"+etunimi).css("background-color", "red");
-							alert("Asiakkaan " + etunimi + " " +sukunimi+ " poisto onnistui.");
+							
+							alert("Asiakkaan jonka id on:  " +asiakas_id+ " poisto onnistui.");
 							haeAsiakkaat();
 						}
 					}});

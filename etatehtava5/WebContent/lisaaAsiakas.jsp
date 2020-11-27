@@ -54,6 +54,7 @@
 					},
 					puhelin : {
 						required : true,
+						digits: true,
 						minlength : 4
 					},
 					sposti : {
