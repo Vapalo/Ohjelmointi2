@@ -75,7 +75,8 @@
 						htmlteksti += "<td>" + field.sukunimi + "</td>";
 						htmlteksti += "<td>" + field.puhelin + "</td>";
 						htmlteksti += "<td>" + field.sposti + "</td>";
-						htmlteksti += "<td><span class='poista' onclick=poista("+field.asiakas_id+")>Poista</span></td>";
+						htmlteksti += "<td><a href='muutaAsiakas.jsp?id="+field.asiakas_id+"'>Muuta&nbsp;";
+						htmlteksti += "<span class='poista' onclick=poista("+field.asiakas_id+")>Poista</span></td>";
 						htmlteksti += "</tr>";
 						$("#listaus tbody").append(htmlteksti);
 					})
