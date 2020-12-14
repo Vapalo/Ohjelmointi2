@@ -25,12 +25,12 @@
 			<tr>
 				<th>Tunnus</th>
 				<th>Nimi</th>
-				<th>Merkkimalli</th>
+				<th>Malli</th>
 				<th>Pituus</th>
 				<th>Leveys</th>
-				<th>Hinta</th>
-				<th></th>
-				<th></th>
+				<th>Hinta &euro;</th>
+				<th colspan="2"></th>
+				
 			<tr>
 		</thead>
 		<tbody id="tbody">
@@ -66,7 +66,7 @@
 				htmlString += "<td>"+tulos.pituus+"</td>",
 				htmlString += "<td>"+tulos.leveys+"</td>",
 				htmlString += "<td>"+tulos.hinta+"</td>",
-				htmlString += "<td><a href='muutaAsiakas.jsp?id="+tulos.tunnus+"'>Muuta&nbsp;</td>",
+				htmlString += "<td><a href='muutaVene.jsp?id="+tulos.tunnus+"'>Muuta</td>",
 				htmlString += "<td><span class='poista' onclick=poista("+tulos.tunnus+")>Poista</span></td>",
 				htmlString += "</tr>"
 			})

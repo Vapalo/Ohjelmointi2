@@ -146,5 +146,60 @@ public class Dao {
 		}
 		return paluuArvo;
 	}
+	
+	public Vene etsiVene(int id) {
+		Vene vene = null;
+		sql = "SELECT * FROM veneet WHERE tunnus=?";
+		
+		try {
+			con = yhdista();
+			if (con != null) {
+				prep = con.prepareStatement(sql);
+				prep.setInt(1, id);
+				rs = prep.executeQuery();
+				
+				if (rs.isBeforeFirst()) { //Jos kysely tuotti tulosta
+				
+					rs.next();
+					vene = new Vene();
+					vene.setNimi(rs.getString(2));
+					vene.setMerkkimalli(rs.getString(3));
+					vene.setPituus(rs.getDouble(4));
+					vene.setLeveys(rs.getDouble(5));
+					vene.setHinta(rs.getInt(6));
+				}
+			}
+			con.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return vene;
+	}
+	
+	public boolean muutaVene(Vene vene, int id) {
+		boolean paluuArvo = true;
+		sql = "UPDATE veneet SET nimi=?, merkkimalli=?, pituus=?, leveys=?, hinta=? WHERE tunnus=?";
+		
+		try {
+			con = yhdista();
+			if (con != null) {
+				prep = con.prepareStatement(sql);
+				prep.setString(1, vene.getNimi());
+				prep.setString(2, vene.getMerkkimalli());
+				prep.setDouble(3, vene.getPituus());
+				prep.setDouble(4, vene.getLeveys());
+				prep.setInt(5, vene.getHinta());
+				prep.setInt(6, id);
+				prep.executeUpdate();
+				con.close();
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			paluuArvo = false;
+		}
+		return paluuArvo;
+	}
 
 }

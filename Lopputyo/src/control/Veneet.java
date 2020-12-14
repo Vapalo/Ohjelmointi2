@@ -47,7 +47,24 @@ public class Veneet extends HttpServlet {
 		if (pathInfo == null) {
 			veneet = dao.listaaKaikki();
 			strJSON = new JSONObject().put("veneet", veneet).toString();
+
+		} else if (pathInfo.indexOf("haeyksi") != -1) { // Jos haetaan vain yksi
+			String tunnusString = pathInfo.replace("/haeyksi/", "");
+			int tunnus = Integer.parseInt(tunnusString);
+			Vene vene = dao.etsiVene(tunnus);
+			// Etsitään tunnuksen perusteella muutettava vene
+
+			JSONObject JSON = new JSONObject();
+			JSON.put("tunnus", tunnus);
+			JSON.put("nimi", vene.getNimi());
+			JSON.put("merkkimalli", vene.getMerkkimalli());
+			JSON.put("pituus", vene.getPituus());
+			JSON.put("leveys", vene.getLeveys());
+			JSON.put("hinta", vene.getHinta());
+			strJSON = JSON.toString();
+
 		} else {
+
 			String hakusana = pathInfo.replace("/", "");
 			veneet = dao.listaaKaikki(hakusana);
 			strJSON = new JSONObject().put("veneet", veneet).toString();
@@ -89,12 +106,33 @@ public class Veneet extends HttpServlet {
 
 	protected void doPut(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		System.out.println("Veneet.doPut()");
+		JSONObject jsonObj = new JsonStrToObj().convert(request); //Muutetaan http pyyntö jsoniksi
+		Vene vene = new Vene();
+		
+		int tunnus = Integer.parseInt((String) jsonObj.get("tunnus"));
+		//Parsesoidaan veneen tunnus kokonaisluvuksi merkkijonosta
+		
+		vene.setNimi(jsonObj.getString("nimi"));
+		vene.setMerkkimalli(jsonObj.getString("merkkimalli"));
+		vene.setPituus(jsonObj.getDouble("pituus"));
+		vene.setLeveys(jsonObj.getDouble("leveys"));
+		vene.setHinta(jsonObj.getInt("hinta"));
+		
+		PrintWriter out = response.getWriter();
+		response.setContentType("application/json");
+		
+		Dao dao = new Dao();
+		
+		if (dao.muutaVene(vene, tunnus)) {
+			out.println("{ \"response\": 1}"); //Muutos onnistui
+		} else {
+			out.println("{ \"response\": 0}"); //Muutos epaonnistui
+		}
+		
 	}
 
-	/**
-	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
-	 */
+	
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("Veneet.doDelete()");
