@@ -19,3 +19,9 @@ table td, table th {
 .otsikko {
 	text-align: center;
 }
+
+.poista{
+	color: red;
+	text-decoration: underline;
+	cursor: pointer;	
+}

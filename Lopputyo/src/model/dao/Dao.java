@@ -63,12 +63,12 @@ public class Dao {
 		}
 		return veneet;
 	}
-	
+
 	public ArrayList<Vene> listaaKaikki(String hakusana) {
 		ArrayList<Vene> veneet = new ArrayList<Vene>();
 		sql = "SELECT * FROM veneet WHERE nimi LIKE ? OR merkkimalli LIKE ? OR pituus LIKE ? OR leveys LIKE ? OR hinta like ?";
-		//SQL lauseke hakemista varten
-		
+		// SQL lauseke hakemista varten
+
 		try {
 			con = yhdista();
 			if (con != null) {
@@ -79,8 +79,8 @@ public class Dao {
 				prep.setString(4, "%" + hakusana + "%");
 				prep.setString(5, "%" + hakusana + "%");
 				rs = prep.executeQuery();
-				
-				if (rs != null) { //Jos haku tuotti tulosta
+
+				if (rs != null) { // Jos haku tuotti tulosta
 					while (rs.next()) {
 						Vene vene = new Vene();
 						vene.setTunnus(rs.getInt(1));
@@ -89,16 +89,62 @@ public class Dao {
 						vene.setPituus(rs.getDouble(4));
 						vene.setLeveys(rs.getDouble(5));
 						vene.setHinta(rs.getInt(6));
-						 //Lis‰t‰‰n veneelle b‰kk‰rist‰ haetut tiedot
-						veneet.add(vene); //Lis‰t‰‰n vene arraylistaan
+						// Lis‰t‰‰n veneelle b‰kk‰rist‰ haetut tiedot
+						veneet.add(vene); // Lis‰t‰‰n vene arraylistaan
 					}
 				}
 			}
-			
-		}catch (Exception e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return veneet;
+	}
+
+	public boolean poistaVene(int tunnus) {
+		boolean paluuArvo = true;
+		sql = "DELETE FROM veneet WHERE tunnus=?";
+
+		try {
+			con = yhdista();
+			if (con != null) { // Jos yhteys onnistui
+				prep = con.prepareStatement(sql);
+				prep.setInt(1, tunnus); // Annetaan tunnus arvoksi kysymysmerkille
+				prep.executeUpdate();
+				con.close();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			paluuArvo = false;
+		}
+		return paluuArvo;
+	}
+
+	public boolean lisaaVene(Vene vene) {
+		boolean paluuArvo = true;
+		sql = "INSERT INTO veneet(nimi, merkkimalli, pituus, leveys, hinta) VALUES(?,?,?,?,?)";
+		// SQL lause arvojen lis‰‰miselle. Pit‰‰ erikseen kertoa
+		// Mitk‰ arvot lis‰t‰‰n koska kaikkia arvoja ei lis‰t‰. autoincrementtaavaa
+		// id:t‰ ei voida lis‰t‰
+
+		try {
+			con = yhdista();
+			if (con != null) {
+				prep = con.prepareStatement(sql);
+				prep.setString(1, vene.getNimi());
+				prep.setString(2, vene.getMerkkimalli());
+				prep.setDouble(3, vene.getPituus());
+				prep.setDouble(4, vene.getLeveys());
+				prep.setInt(5, vene.getHinta());
+				prep.executeUpdate();
+				con.close();
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			paluuArvo = false;
+		}
+		return paluuArvo;
 	}
 
 }

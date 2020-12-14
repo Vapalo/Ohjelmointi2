@@ -14,18 +14,23 @@
 		<thead>
 			<tr>
 				<th colspan="5">Veneiden listaus</th>
+				<th colspan="3" id="ilmo"></th>
 			</tr>
 			
 			<tr>
-				<th colspan="3">Etsi: <input type="text" id="hakusana"></th>
+				<th colspan="3">Etsi: <input type="text" id="hakusana" autocomplete="off"></th>
 				<th colspan="2"><input type="button" onClick="haeVeneet()" value="Hae">
+				<th colspan="3" ><a href="lisaaVene.jsp">Lis‰‰ vene</a></th>
 			</tr>
 			<tr>
+				<th>Tunnus</th>
 				<th>Nimi</th>
 				<th>Merkkimalli</th>
 				<th>Pituus</th>
 				<th>Leveys</th>
 				<th>Hinta</th>
+				<th></th>
+				<th></th>
 			<tr>
 		</thead>
 		<tbody id="tbody">
@@ -39,6 +44,7 @@
 			haeVeneet()
 		}
 	}
+	document.getElementById("hakusana").focus();
 	
 	const haeVeneet = () => {
 		document.getElementById("tbody").innerHTML="";
@@ -53,18 +59,42 @@
 			let htmlString = "";
 			
 			veneet.map((tulos, index) => {
-				htmlString+="<tr key=index>",
-				htmlString+="<td>"+tulos.nimi+"</td>",
-				htmlString+="<td>"+tulos.merkkimalli+"</td>",
-				htmlString+="<td>"+tulos.pituus+"</td>",
-				htmlString+="<td>"+tulos.leveys+"</td>",
-				htmlString+="<td>"+tulos.hinta+"</td>"
+				htmlString += "<tr key=index>",
+				htmlString += "<td>"+tulos.tunnus+"</td>"
+				htmlString += "<td>"+tulos.nimi+"</td>",
+				htmlString += "<td>"+tulos.merkkimalli+"</td>",
+				htmlString += "<td>"+tulos.pituus+"</td>",
+				htmlString += "<td>"+tulos.leveys+"</td>",
+				htmlString += "<td>"+tulos.hinta+"</td>",
+				htmlString += "<td><a href='muutaAsiakas.jsp?id="+tulos.tunnus+"'>Muuta&nbsp;</td>",
+				htmlString += "<td><span class='poista' onclick=poista("+tulos.tunnus+")>Poista</span></td>",
+				htmlString += "</tr>"
 			})
 				document.getElementById("tbody").innerHTML = htmlString;
 		})
 	}
-	
 	haeVeneet();
+	
+	const poista = (tunnus) => {
+		if (confirm("Oletko varma, ett‰ haluat poistaa veneen jonka tunnus on: " +tunnus+ "?")) {
+			
+			fetch("veneet/" + tunnus, {
+				method: "DELETE"
+			})
+			.then(response => response.json())
+			.then(responseJson => {
+				let vastaus = responseJson.response;
+				
+				if(vastaus == 0){
+					document.getElementById("ilmo").innerHTML="Veneen poisto ep‰onnistui";
+				} else if (vastaus == 1){
+					document.getElementById("ilmo").innerHTML="Veneen poisto onnistui";
+				}
+				haeVeneet();
+			})
+			
+		}
+	}
 	
 
 </script>
