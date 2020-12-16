@@ -6,41 +6,43 @@
 <script src="scripts/main.js"></script>
 <link rel="stylesheet" type="text/css" href="css/main.css">
 <meta charset="ISO-8859-1">
-<title>Mulla harrastus on</title>
+<title>Lopputyö</title>
 </head>
 <body onkeydown="tutkiKey(event)">
 	<h1 class="otsikko">Muuta veneen tietoja!</h1>
-	
+
 	<form id="tiedot" autocomplete="off">
-	<table class="veneet">
-		<thead>
-			<tr>
-				<th colspan="2">Veneen tiedot</th>
-				<th colspan="2" id="ilmo"></th>
-				<th colspan="2" ><a href="listaaVeneet.jsp">Takaisin listaukseen</a></th>
-			</tr>
-			<tr>
-				<th>Nimi</th>
-				<th>Malli</th>
-				<th>Pituus</th>
-				<th>Leveys</th>
-				<th>Hinta &euro;</th>
-				<th></th>
-				
-			<tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td> <input type="text" name="nimi" id="nimi"> </td>
-				<td> <input type="text" name="merkkimalli" id="merkkimalli"> </td>
-				<td> <input type="text" name="pituus" id="pituus"> </td>
-				<td> <input type="text" name="leveys" id="leveys"> </td>
-				<td> <input type="text" name="hinta" id="hinta"> </td>
-				<td> <input type="button" id="tallenna" onClick="muutaVene()" value="Tallenna"></td>
-			</tr>
-		</tbody>
-	</table>
-	<input type="hidden" name="tunnus" id="tunnus">
+		<table class="veneet">
+			<thead>
+				<tr>
+					<th colspan="2">Veneen tiedot</th>
+					<th colspan="2" id="ilmo"></th>
+					<th colspan="2"><a href="listaaVeneet.jsp">Takaisin
+							listaukseen</a></th>
+				</tr>
+				<tr>
+					<th>Nimi</th>
+					<th>Malli</th>
+					<th>Pituus</th>
+					<th>Leveys</th>
+					<th>Hinta &euro;</th>
+					<th></th>
+				<tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><input type="text" name="nimi" id="nimi"></td>
+					<td><input type="text" name="merkkimalli" id="merkkimalli">
+					</td>
+					<td><input type="text" name="pituus" id="pituus"></td>
+					<td><input type="text" name="leveys" id="leveys"></td>
+					<td><input type="text" name="hinta" id="hinta"></td>
+					<td><input type="button" id="tallenna" onClick="muutaVene()"
+						value="Tallenna"></td>
+				</tr>
+			</tbody>
+		</table>
+		<input type="hidden" name="tunnus" id="tunnus">
 	</form>
 </body>
 <script>

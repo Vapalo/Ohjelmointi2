@@ -1,27 +1,28 @@
-
 * {
 	font-family: Verdana, Arial, Helvetica sans-serif;
+	
 }
 
 .veneet {
 	border-collapse: collapse;
-
 	border: 1px solid;
 	width: 65%;
-	margin:auto;
+	margin: auto;
+	
 }
 
 table td, table th {
-  border: 1px solid #ddd;
-  padding: 15px;  
+	border: 1px solid #ddd;
+	padding: 15px;
+	
 }
 
 .otsikko {
 	text-align: center;
 }
 
-.poista{
+.poista {
 	color: red;
 	text-decoration: underline;
-	cursor: pointer;	
+	cursor: pointer;
 }

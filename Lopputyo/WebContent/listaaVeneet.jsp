@@ -5,7 +5,7 @@
 <head>
 <link rel="stylesheet" type="text/css" href="css/main.css">
 <meta charset="ISO-8859-1">
-<title>Mulla harrastus on</title>
+<title>Lopputyö</title>
 </head>
 <body onkeydown="tutkiKey(event)">
 	<h1 class="otsikko">Tervetuloa veneiden listaukseen</h1>
@@ -13,14 +13,15 @@
 	<table class="veneet">
 		<thead>
 			<tr>
-				<th colspan="5">Veneiden listaus</th>
-				<th colspan="3" id="ilmo"></th>
+				<th colspan="4">Veneiden listaus</th>
+				<th colspan="4" id="ilmo"></th>
 			</tr>
-			
+
 			<tr>
-				<th colspan="3">Etsi: <input type="text" id="hakusana" autocomplete="off"></th>
-				<th colspan="2"><input type="button" onClick="haeVeneet()" value="Hae">
-				<th colspan="3" ><a href="lisaaVene.jsp">Lisää vene</a></th>
+				<th colspan="4">Etsi: <input type="text" id="hakusana"
+					autocomplete="off"> <input type="button" onClick="haeVeneet()"
+					value="Hae"></th>
+				<th colspan="4"><a href="lisaaVene.jsp">Lisää vene</a></th>
 			</tr>
 			<tr>
 				<th>Tunnus</th>
@@ -30,7 +31,6 @@
 				<th>Leveys</th>
 				<th>Hinta &euro;</th>
 				<th colspan="2"></th>
-				
 			<tr>
 		</thead>
 		<tbody id="tbody">
